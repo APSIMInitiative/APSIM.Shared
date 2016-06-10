@@ -102,6 +102,12 @@
     <Reference Include="WindowsBase" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="CMPServices\comppsr.cs" />
+    <Compile Include="CMPServices\initpsr.cs" />
+    <Compile Include="CMPServices\sdmlpsr.cs" />
+    <Compile Include="CMPServices\sdmlval.cs" />
+    <Compile Include="CMPServices\typedval.cs" />
+    <Compile Include="CMPServices\xmlpsr.cs" />
     <Compile Include="OldAPSIM\ConvertSoilNode.cs" />
     <Compile Include="OldAPSIM\Shortcuts.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
