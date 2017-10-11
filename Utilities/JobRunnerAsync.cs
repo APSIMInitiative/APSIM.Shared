@@ -104,18 +104,20 @@ namespace APSIM.Shared.Utilities
                         });
                     }
                 }
+                while (numberTasksRunning > 0)
+                    Thread.Sleep(200);
+                jobs.Completed();
+
             }
             catch (Exception err)
             { 
                 exceptionThrown = err;
             }
-
-            while (numberTasksRunning > 0)
-                Thread.Sleep(200);
-
-            jobs.Completed();
-            if (AllJobsCompleted != null)
-                AllJobsCompleted.Invoke(this, new AllCompletedArgs() { exceptionThrown = exceptionThrown });
+            finally
+            {
+                if (AllJobsCompleted != null)
+                    AllJobsCompleted.Invoke(this, new AllCompletedArgs() { exceptionThrown = exceptionThrown });
+            }
         }
     }
 }
