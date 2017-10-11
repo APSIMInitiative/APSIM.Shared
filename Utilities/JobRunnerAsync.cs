@@ -115,9 +115,12 @@ namespace APSIM.Shared.Utilities
             { 
                 exceptionThrown = err;
             }
+            finally
+            {
+                if (AllJobsCompleted != null)
+                    AllJobsCompleted.Invoke(this, new AllCompletedArgs() { exceptionThrown = exceptionThrown });
+            }
 
-            if (AllJobsCompleted != null)
-                AllJobsCompleted.Invoke(this, new AllCompletedArgs() { exceptionThrown = exceptionThrown });
         }
     }
 }
