@@ -187,7 +187,7 @@ namespace APSIM.Shared.Utilities
                 if (table.Rows[Row][columnName].ToString() == "")
                     values[Row] = double.NaN;
                 else
-                    values[Row] = Convert.ToDouble(table.Rows[Row][columnName]);
+                    values[Row] = Convert.ToDouble(table.Rows[Row][columnName], System.Globalization.CultureInfo.InvariantCulture);
             }
             return values;
         }
@@ -207,7 +207,7 @@ namespace APSIM.Shared.Utilities
                 if (table[Row][columnName].ToString() == "")
                     Values[Row] = double.NaN;
                 else
-                    Values[Row] = Convert.ToDouble(table[Row][columnName]);
+                    Values[Row] = Convert.ToDouble(table[Row][columnName], System.Globalization.CultureInfo.InvariantCulture);
             }
             return Values;
         }
@@ -232,7 +232,7 @@ namespace APSIM.Shared.Utilities
                 {
                     try
                     {
-                        values[index] = Convert.ToDouble(table.Rows[Row][columnName]);
+                        values[index] = Convert.ToDouble(table.Rows[Row][columnName], System.Globalization.CultureInfo.InvariantCulture);
                     }
                     catch (Exception)
                     {
@@ -582,8 +582,8 @@ namespace APSIM.Shared.Utilities
                     if (Convert.IsDBNull(monthRow[Column.ColumnName]))
                         monthRow[Column.ColumnName] = view[row][Column.ColumnName];
                     else if (Column.DataType.ToString() == "System.Single" || Column.DataType.ToString() == "System.Double")
-                        monthRow[Column.ColumnName] = Convert.ToDouble(monthRow[Column.ColumnName]) +
-                                                      Convert.ToDouble(view[row][Column.ColumnName]);
+                        monthRow[Column.ColumnName] = Convert.ToDouble(monthRow[Column.ColumnName], System.Globalization.CultureInfo.InvariantCulture) +
+                                                      Convert.ToDouble(view[row][Column.ColumnName], System.Globalization.CultureInfo.InvariantCulture);
                     else
                         monthRow[Column.ColumnName] = view[row][Column.ColumnName];
 
@@ -697,7 +697,7 @@ namespace APSIM.Shared.Utilities
                                 else if (toDataType == typeof(float))
                                     newRow[column.ColumnName] = Convert.ToSingle(row[column]);
                                 else if (toDataType == typeof(double))
-                                    newRow[column.ColumnName] = Convert.ToDouble(row[column]);
+                                    newRow[column.ColumnName] = Convert.ToDouble(row[column], System.Globalization.CultureInfo.InvariantCulture);
                                 else if (toDataType == typeof(int))
                                     newRow[column.ColumnName] = Convert.ToInt32(row[column]);
                                 else if (toDataType == typeof(string))

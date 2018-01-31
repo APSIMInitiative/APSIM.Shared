@@ -256,6 +256,24 @@ namespace APSIM.Shared.Utilities
         [NonSerialized]
         private bool _open; //whether or not the database is open
 
+        // Windows LoadLibrary entry point
+        [DllImport("kernel32.dll")]
+        private static extern IntPtr LoadLibrary(string dllToLoad);
+
+        // Windows FreeLibrary entry point
+        //[DllImport("kernel32.dll")]
+        //private static extern bool FreeLibrary(IntPtr hModule);       
+        
+        // Static constructor to allow us to pre-load the correct dll (32 vs. 64 bit) on Windows
+        static SQLite()
+        {
+            if (ProcessUtilities.CurrentOS.IsWindows && ProcessUtilities.CurrentOS.Is64BitProcess)
+            {
+                string DllPath = System.IO.Path.Combine(System.IO.Path.GetDirectoryName(System.Reflection.Assembly.GetEntryAssembly().Location), "x64", "sqlite3.dll");
+                IntPtr lib = LoadLibrary(DllPath);
+            }
+        }
+
         /// <summary>Property to return true if the database is open.</summary>
         /// <value><c>true</c> if this instance is open; otherwise, <c>false</c>.</value>
         public bool IsOpen { get { return _open; } }
@@ -364,7 +382,7 @@ namespace APSIM.Shared.Utilities
                 else if (dataType == typeof(int))
                     return Convert.ToInt32(values[rowIndex]);
                 else if (dataType == typeof(double))
-                    return Convert.ToDouble(values[rowIndex]);
+                    return Convert.ToDouble(values[rowIndex], System.Globalization.CultureInfo.InvariantCulture);
                 else if (dataType == typeof(DateTime))
                     return Convert.ToDateTime(values[rowIndex]);
                 else

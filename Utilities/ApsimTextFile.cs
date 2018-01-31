@@ -330,7 +330,7 @@ namespace APSIM.Shared.Utilities
                             {
                                 if (addConsts.Contains(constant.Name, StringComparer.OrdinalIgnoreCase) && data.Columns.IndexOf(constant.Name) == -1)
                                 {
-                                    Type ColumnType = StringUtilities.DetermineType(constant.Value, "");
+                                    Type ColumnType = StringUtilities.DetermineType(constant.Value, constant.Units);
                                     data.Columns.Add(new DataColumn(constant.Name, ColumnType));
                                     addedConstants.Add(new ApsimConstant(constant.Name, constant.Value, constant.Units, ColumnType.ToString()));
                                 }
@@ -499,6 +499,32 @@ namespace APSIM.Shared.Utilities
                     Types[w] = StringUtilities.DetermineType(LookAheadForNonMissingValue(inData, w), Units[w]);
                 else
                     Types[w] = StringUtilities.DetermineType(words[w], Units[w]);
+
+                // If we can parse as a DateTime, but don't yet have an explicit format, try to determine 
+                // the correct format and make it explicit.
+                if (Types[w] == typeof(DateTime) && (Units[w] == "" || Units[w] == "()"))
+                {
+                    // First try our traditional default format
+                    DateTime dtValue;
+                    if (DateTime.TryParseExact(words[w], "yyyy-MM-dd", System.Globalization.CultureInfo.InvariantCulture, System.Globalization.DateTimeStyles.None, out dtValue))
+                    {
+                        Units[w] = "(yyyy-MM-dd)";
+                    }
+                    else
+                    {
+                        // We know something in the current culture works. Step through the patterns until we find it.
+                        string[] dateFormats = System.Globalization.CultureInfo.CurrentCulture.DateTimeFormat.GetAllDateTimePatterns();
+                        foreach (string dateFormat in dateFormats)
+                        {
+                            if (DateTime.TryParseExact(words[w], dateFormat, System.Globalization.CultureInfo.CurrentCulture, System.Globalization.DateTimeStyles.None, out dtValue))
+                            {
+                                Units[w] = "(" + dateFormat + ")";
+                                break;
+                            }
+                        }
+                    }
+                }
+
             }
             return Types;
         }

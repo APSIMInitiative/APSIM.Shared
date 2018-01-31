@@ -574,7 +574,7 @@ namespace APSIM.Shared.Utilities
                 {
                     if (e.Current is double)
                     {
-                        double value = Convert.ToDouble(e.Current);
+                        double value = Convert.ToDouble(e.Current, System.Globalization.CultureInfo.InvariantCulture);
                         if (value != MissingValue && !double.IsNaN(value))
                             return true;
                     }
@@ -621,7 +621,7 @@ namespace APSIM.Shared.Utilities
                 if (Values[Index].ToString() == "" || Values[Index].ToString() == "NaN")
                     ReturnValues[Index] = MissingValue;
                 else
-                    ReturnValues[Index] = Convert.ToDouble(Values[Index]);
+                    ReturnValues[Index] = Convert.ToDouble(Values[Index], System.Globalization.CultureInfo.InvariantCulture);
             }
             return ReturnValues;
         }
@@ -799,8 +799,8 @@ namespace APSIM.Shared.Utilities
                 if (xEnum.Current.GetType() != typeof(double) ||
                     yEnum.Current.GetType() != typeof(double))
                     return null;
-                double xValue = Convert.ToDouble(xEnum.Current);
-                double yValue = Convert.ToDouble(yEnum.Current);
+                double xValue = Convert.ToDouble(xEnum.Current, System.Globalization.CultureInfo.InvariantCulture);
+                double yValue = Convert.ToDouble(yEnum.Current, System.Globalization.CultureInfo.InvariantCulture);
                 if (!double.IsNaN(xValue) && !double.IsNaN(yValue))
                 {
                     SumX = SumX + xValue;
@@ -826,8 +826,8 @@ namespace APSIM.Shared.Utilities
             yEnum.Reset();
             while (xEnum.MoveNext() && yEnum.MoveNext())
             {
-                double xValue = Convert.ToDouble(xEnum.Current);
-                double yValue = Convert.ToDouble(yEnum.Current);
+                double xValue = Convert.ToDouble(xEnum.Current, System.Globalization.CultureInfo.InvariantCulture);
+                double yValue = Convert.ToDouble(yEnum.Current, System.Globalization.CultureInfo.InvariantCulture);
                 if (!double.IsNaN(xValue) && !double.IsNaN(yValue))
                 {
                     SumOfSquaredSD += Math.Pow(xValue - Xbar, 2);

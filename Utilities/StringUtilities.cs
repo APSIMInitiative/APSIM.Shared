@@ -367,7 +367,7 @@ namespace APSIM.Shared.Utilities
             else if (MathUtilities.IsNumericalenUS(value))
                 ColumnType = Type.GetType("System.Single");
 
-            else if (units == "" && StringUtilities.IsDateTime(value))
+            else if ((units == "" || units == "()") && StringUtilities.IsDateTime(value))
                 ColumnType = Type.GetType("System.DateTime");
 
             else if ((units.Contains("d") && units.Contains("/") && units.Contains("y"))

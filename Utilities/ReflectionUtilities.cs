@@ -110,7 +110,7 @@ namespace APSIM.Shared.Utilities
                     if (F.FieldType == typeof(string))
                         F.SetValue(obj, value.ToString());
                     else if (F.FieldType == typeof(double))
-                        F.SetValue(obj, Convert.ToDouble(value));
+                        F.SetValue(obj, Convert.ToDouble(value, System.Globalization.CultureInfo.InvariantCulture));
                     else if (F.FieldType == typeof(int))
                         F.SetValue(obj, Convert.ToInt32(value));
                     else
@@ -140,7 +140,7 @@ namespace APSIM.Shared.Utilities
                 else if (P.PropertyType == typeof(string))
                     P.SetValue(obj, value.ToString(), null);
                 else if (P.PropertyType == typeof(double))
-                    P.SetValue(obj, Convert.ToDouble(value), null);
+                    P.SetValue(obj, Convert.ToDouble(value, System.Globalization.CultureInfo.InvariantCulture), null);
                 else if (P.PropertyType == typeof(int))
                     P.SetValue(obj, Convert.ToInt32(value), null);
                 else
