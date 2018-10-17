@@ -124,6 +124,24 @@ namespace APSIM.Shared.Utilities
         }
 
         /// <summary>
+        /// Generates a unique file name in the temporary directory.
+        /// Throws if unable to generate the file name in 10 attempts.
+        /// </summary>
+        public static string GetTempFileName()
+        {
+            string fileName = Path.Combine(Path.GetTempPath(), Guid.NewGuid().ToString());
+            int i = 0;
+            while (File.Exists(fileName))
+            {
+                fileName = Path.Combine(Path.GetTempPath(), Guid.NewGuid().ToString());
+                i++;
+                if (i >= 10)
+                    throw new IOException("Unable to generate a temporary file name. You should consider cleaning your temp directory at " + Path.GetTempPath());
+            }
+            return fileName;
+        }
+
+        /// <summary>
         /// Try and reduce the path.
         /// </summary>
         /// <param name="path"></param>
