@@ -323,10 +323,10 @@ namespace APSIM.Shared.Utilities
             int iIndex = 0;
             foreach (double Value in Values)
             {
-                if (iIndex >= iEndIndex)
-                    return result;
                 if (iIndex >= iStartIndex && Value != MissingValue)
                     result += Value;
+                if (iIndex >= iEndIndex)
+                    return result;
                 iIndex++;
             }
 
