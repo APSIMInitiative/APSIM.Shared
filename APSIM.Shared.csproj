@@ -164,6 +164,8 @@
     <Compile Include="Utilities\WebUtilities.cs" />
     <Compile Include="Utilities\XmlReaderCustom.cs" />
     <Compile Include="Utilities\XmlUtilities.cs" />
+    <Compile Include="Web\BuildJob.cs" />
+    <Compile Include="Web\Upgrade.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />
