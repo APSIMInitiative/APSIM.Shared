@@ -60,6 +60,11 @@ namespace APSIM.Shared.Web
         public int Revision { get; set; }
 
         /// <summary>
+        /// Version string including revision - e.g. "7.10-r4191".
+        /// </summary>
+        public string VersionString { get; set; }
+
+        /// <summary>
         /// Xml URL.
         /// </summary>
         /// <remarks>What is this?</remarks>
@@ -94,6 +99,11 @@ namespace APSIM.Shared.Web
         /// Link to details about windows build.
         /// </summary>
         public string WindowsDetailsURL { get; set; }
+
+        /// <summary>
+        /// Link to the issue which was addressed by this build.
+        /// </summary>
+        public string IssueURL { get; set; }
 
         /// <summary>
         /// Link to windows installer.
@@ -150,5 +160,10 @@ namespace APSIM.Shared.Web
         /// ID of the Jenkins job, or -1 if not built on Jenkins.
         /// </summary>
         public int JenkinsID { get; set; }
+
+        /// <summary>
+        /// Pull request ID.
+        /// </summary>
+        public int PullRequestID { get; set; }
     }
 }
